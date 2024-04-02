@@ -29,4 +29,16 @@ public class CountryController: ControllerBase
         var countries = await _baseRepository.Select();
         return Ok(countries);
     }
+    
+    [HttpDelete("{id:int}")]
+    public async Task<ActionResult<Country>> Destroy(int id)
+    {
+        //var country = await _baseRepository.Select(id);
+        
+        //if (country == null) return NotFound(new { message = "Country not found" });
+        
+        await _baseRepository.Delete(id);
+        
+        return Ok(new { message = "Country deleted" });
+    }
 }

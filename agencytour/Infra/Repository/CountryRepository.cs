@@ -38,9 +38,12 @@ public class CountryRepository : IBaseRepository<Country>
         throw new NotImplementedException();
     }
 
-    public Task<Country> Delete(int id)
+    public async Task<Country> Delete(int id)
     {
-        throw new NotImplementedException();
+        var country = await _dataContext.Countries.FindAsync(id);
+        _dataContext.Remove(country);
+        await _dataContext.SaveChangesAsync();
+        return country;
     }
 
     public Task<Country> SelectName(string name)
